@@ -1,0 +1,202 @@
+.exercise-page {
+  animation: fadeIn 0.3s ease;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-heading p {
+  color: #8b5cf6;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.page-heading h1 {
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+
+.add-workout {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+
+  background: #8b5cf6;
+  color: white;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-workout:hover {
+  opacity: 0.9;
+}
+
+.exercise-section {
+  background: #111418;
+  border: 1px solid #20242a;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  margin-bottom: 22px;
+}
+
+.section-title > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title > div > span {
+  font-size: 24px;
+}
+
+.section-title h2 {
+  font-size: 17px;
+}
+
+.section-title p {
+  color: #777e89;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.exercise-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.exercise-stat {
+  padding: 20px;
+  background: #171a1f;
+  border-radius: 12px;
+}
+
+.exercise-stat p {
+  color: #777e89;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.exercise-stat h3 {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.exercise-stat span {
+  color: #626873;
+  font-size: 11px;
+}
+
+.mileage {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.mileage-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 50px;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 12px;
+}
+
+.mileage-row > span {
+  color: #777e89;
+}
+
+.mileage-row strong {
+  text-align: right;
+}
+
+.mileage-bar {
+  height: 8px;
+  background: #20242a;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.mileage-bar div {
+  height: 100%;
+  background: #8b5cf6;
+  border-radius: inherit;
+}
+
+.strength-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.strength-card {
+  padding: 20px;
+  background: #171a1f;
+  border-radius: 12px;
+}
+
+.strength-card > span {
+  font-size: 22px;
+}
+
+.strength-card h3 {
+  font-size: 14px;
+  margin: 12px 0 6px;
+}
+
+.strength-card p {
+  color: #a0a5ae;
+  font-size: 12px;
+}
+
+.strength-card small {
+  display: block;
+  color: #626873;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1000px) {
+  .exercise-stats,
+  .strength-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-heading {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .page-heading h1 {
+    font-size: 24px;
+  }
+
+  .exercise-stats,
+  .strength-grid {
+    grid-template-columns: 1fr;
+  }
+}
