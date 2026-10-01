@@ -1,283 +1,231 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import AddActivity from "../components/AddActivity";
+import FocusTimer from "../components/FocusTimer";
+import { getData, deleteActivity } from "../data/storage";
 import "./Productivity.css";
-
-const initialActivities = [
-  {
-    id: 1,
-    icon: "🧠",
-    name: "DSA",
-    target: "1 hour",
-    completed: false,
-  },
-  {
-    id: 2,
-    icon: "⚛️",
-    name: "React",
-    target: "1 hour",
-    completed: false,
-  },
-  {
-    id: 3,
-    icon: "🐍",
-    name: "Python",
-    target: "45 minutes",
-    completed: false,
-  },
-  {
-    id: 4,
-    icon: "☁️",
-    name: "AWS / DevOps",
-    target: "1 hour",
-    completed: false,
-  },
-  {
-    id: 5,
-    icon: "🔐",
-    name: "Cybersecurity",
-    target: "45 minutes",
-    completed: false,
-  },
-  {
-    id: 6,
-    icon: "🧑‍💻",
-    name: "Project Work",
-    target: "2 hours",
-    completed: false,
-  },
-];
 
 function Productivity() {
   const [activities, setActivities] = useState(() => {
-    const saved = localStorage.getItem("productivityActivities");
-
-    return saved
-      ? JSON.parse(saved)
-      : initialActivities;
+    return getData().activities;
   });
 
-  useEffect(() => {
-    localStorage.setItem(
-      "productivityActivities",
-      JSON.stringify(activities)
-    );
-  }, [activities]);
+  const [showAddActivity, setShowAddActivity] = useState(false);
 
-  const toggleActivity = (id) => {
-    setActivities((current) =>
-      current.map((activity) =>
-        activity.id === id
-          ? {
-              ...activity,
-              completed: !activity.completed,
-            }
-          : activity
+  const handleActivityAdded = (newActivity) => {
+    setActivities((previousActivities) => [
+      ...previousActivities,
+      newActivity,
+    ]);
+  };
+
+  const handleDeleteActivity = (id) => {
+    deleteActivity(id);
+
+    setActivities((previousActivities) =>
+      previousActivities.filter(
+        (activity) => activity.id !== id
       )
     );
   };
 
-  const completedCount = activities.filter(
-    (activity) => activity.completed
-  ).length;
-
-  const completionPercentage = Math.round(
-    (completedCount / activities.length) * 100
-  );
-
   return (
     <div className="productivity-page">
 
-      <div className="page-heading">
+      {/* =========================================
+          PAGE HEADER
+      ========================================= */}
+
+      <div className="productivity-header">
         <div>
-          <p>Productivity</p>
-          <h1>Focus on what matters.</h1>
+          <p className="page-label">PRODUCTIVITY</p>
+
+          <h1>Build better habits.</h1>
+
+          <p className="page-description">
+            Create activities and track focused work.
+          </p>
         </div>
 
-        <button className="focus-button">
-          + Start Focus
+        <button
+          type="button"
+          className="add-activity-button"
+          onClick={() => setShowAddActivity(true)}
+        >
+          + Add Activity
         </button>
       </div>
 
-      {/* Stats */}
 
-      <section className="productivity-stats">
+      {/* =========================================
+          FOCUS TIMER
+      ========================================= */}
 
-        <div className="productivity-stat">
-          <span>🎯</span>
+      <section className="productivity-section focus-section">
 
+        <div className="section-title">
           <div>
-            <p>Deep Work</p>
-            <h2>18.5h</h2>
-            <small>This week</small>
+            <span>◷</span>
+
+            <div>
+              <h2>Focus Timer</h2>
+
+              <p>
+                Work on one activity without distractions.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="productivity-stat">
-          <span>🧠</span>
-
-          <div>
-            <p>DSA</p>
-            <h2>5.2h</h2>
-            <small>This week</small>
-          </div>
-        </div>
-
-        <div className="productivity-stat">
-          <span>💻</span>
-
-          <div>
-            <p>Development</p>
-            <h2>8.5h</h2>
-            <small>This week</small>
-          </div>
-        </div>
-
-        <div className="productivity-stat">
-          <span>🔥</span>
-
-          <div>
-            <p>Focus Streak</p>
-            <h2>7 days</h2>
-            <small>Current streak</small>
-          </div>
-        </div>
+        <FocusTimer />
 
       </section>
 
-      {/* Today's Focus */}
 
-      <section className="productivity-section">
+      {/* =========================================
+          MY ACTIVITIES
+      ========================================= */}
 
-        <div className="section-title">
+      <section className="activities-section">
 
+        <div className="section-heading">
           <div>
-            <span>🎯</span>
+            <h2>My Activities</h2>
 
-            <div>
-              <h2>Today's Focus</h2>
-              <p>Your daily learning activities</p>
-            </div>
+            <p>
+              {activities.length === 0
+                ? "You haven't created any activities yet."
+                : `${activities.length} ${
+                    activities.length === 1
+                      ? "activity"
+                      : "activities"
+                  }`}
+            </p>
           </div>
-
-          <span className="progress-label">
-            {completedCount} / {activities.length}
-          </span>
-
         </div>
 
-        {/* Progress */}
 
-        <div className="productivity-progress">
+        {/* =====================================
+            EMPTY STATE
+        ===================================== */}
 
-          <div className="progress-track">
-            <div
-              className="progress-fill"
-              style={{
-                width: `${completionPercentage}%`,
-              }}
-            />
-          </div>
+        {activities.length === 0 ? (
+          <div className="empty-activities">
 
-          <span>{completionPercentage}%</span>
-
-        </div>
-
-        {/* Activities */}
-
-        <div className="activity-list">
-
-          {activities.map((activity) => (
-
-            <div
-              className={`activity ${
-                activity.completed
-                  ? "activity-completed"
-                  : ""
-              }`}
-              key={activity.id}
+            <button
+              type="button"
+              className="empty-icon"
+              onClick={() => setShowAddActivity(true)}
+              aria-label="Create activity"
             >
+              +
+            </button>
 
-              <div className="activity-icon">
-                {activity.icon}
-              </div>
+            <h3>No activities yet</h3>
 
-              <div className="activity-info">
+            <p>
+              Create your first productivity activity
+              to start tracking your progress.
+            </p>
 
-                <h3>{activity.name}</h3>
+            <button
+              type="button"
+              className="empty-add-button"
+              onClick={() => setShowAddActivity(true)}
+            >
+              Create Activity
+            </button>
 
-                <p>{activity.target}</p>
-
-              </div>
-
-              <button
-                className={`activity-check ${
-                  activity.completed
-                    ? "checked"
-                    : ""
-                }`}
-                onClick={() =>
-                  toggleActivity(activity.id)
-                }
-              >
-                {activity.completed ? "✓" : ""}
-              </button>
-
-            </div>
-
-          ))}
-
-        </div>
-
-      </section>
-
-      {/* Focus Chart */}
-
-      <section className="productivity-section">
-
-        <div className="section-title">
-
-          <div>
-            <span>⏱️</span>
-
-            <div>
-              <h2>Focus Time</h2>
-              <p>Your deep-work sessions this week</p>
-            </div>
           </div>
+        ) : (
 
-        </div>
+          /* =====================================
+             ACTIVITY CARDS
+          ===================================== */
 
-        <div className="focus-chart">
+          <div className="activities-grid">
 
-          {[
-            ["Mon", "2.5h", "55%"],
-            ["Tue", "3.2h", "75%"],
-            ["Wed", "1.8h", "40%"],
-            ["Thu", "4h", "90%"],
-            ["Fri", "2.8h", "65%"],
-            ["Sat", "2.2h", "50%"],
-            ["Sun", "1.2h", "30%"],
-          ].map(([day, hours, height]) => (
-
-            <div className="focus-day" key={day}>
-
+            {activities.map((activity) => (
               <div
-                className="focus-bar"
-                style={{
-                  height,
-                }}
-              />
+                className="activity-card"
+                key={activity.id}
+              >
 
-              <span>{day}</span>
+                <div
+                  className="activity-color"
+                  style={{
+                    backgroundColor:
+                      activity.color,
+                  }}
+                />
 
-              <small>{hours}</small>
+                <div className="activity-card-content">
 
-            </div>
+                  <div className="activity-card-top">
 
-          ))}
+                    <div>
+                      <h3>{activity.name}</h3>
 
-        </div>
+                      {activity.category && (
+                        <span className="activity-category">
+                          {activity.category}
+                        </span>
+                      )}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="delete-activity-button"
+                      onClick={() =>
+                        handleDeleteActivity(
+                          activity.id
+                        )
+                      }
+                      aria-label={`Delete ${activity.name}`}
+                    >
+                      ×
+                    </button>
+
+                  </div>
+
+                  <div className="activity-target">
+
+                    <span>Target</span>
+
+                    <strong>
+                      {activity.target !== null
+                        ? `${activity.target} ${
+                            activity.unit || ""
+                          }`
+                        : "No target"}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+        )}
 
       </section>
+
+
+      {/* =========================================
+          ADD ACTIVITY MODAL
+      ========================================= */}
+
+      {showAddActivity && (
+        <AddActivity
+          onClose={() =>
+            setShowAddActivity(false)
+          }
+          onActivityAdded={
+            handleActivityAdded
+          }
+        />
+      )}
 
     </div>
   );

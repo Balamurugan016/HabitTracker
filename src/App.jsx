@@ -1,47 +1,164 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Dumbbell,
+  Repeat,
+  Brain,
+  BarChart3,
+  Settings,
+} from "lucide-react";
 
 import Dashboard from "./pages/Dashboard";
 import Exercise from "./pages/Exercise";
 import Productivity from "./pages/Productivity";
-
+import Habits from "./pages/Habits";
 
 import "./App.css";
 
 function App() {
+  const navLinkClass = ({ isActive }) =>
+    isActive ? "nav-link active" : "nav-link";
+
   return (
     <BrowserRouter>
       <div className="app">
+
+        {/* =========================
+            SIDEBAR
+        ========================= */}
+
         <aside className="sidebar">
-          <h2>
-            Habit<span>Track</span>
-          </h2>
 
-          <nav>
-            <Link to="/">🏠 Overview</Link>
+          {/* Brand */}
 
-            <Link to="/exercise">
-              🏃 Exercise
-            </Link>
+          <div className="sidebar-brand">
 
-            <Link to="/productivity">
-              💻 Productivity
-            </Link>
+            <div className="brand-text">
+              <h2>
+                <span className="brand-habit">Habit</span>
+                <span className="brand-track">Track</span>
+              </h2>
+              <span>PERSONAL SYSTEM</span>
+            </div>
 
-            <Link to="/progress">
-              📈 Progress
-            </Link>
+          </div>
+
+
+          {/* Navigation */}
+
+          <nav className="sidebar-nav">
+
+            <div className="nav-section-title">
+              WORKSPACE
+            </div>
+
+            <NavLink
+              to="/"
+              className={navLinkClass}
+            >
+              <LayoutDashboard
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Dashboard</span>
+            </NavLink>
+
+
+            <NavLink
+              to="/exercise"
+              className={navLinkClass}
+            >
+              <Dumbbell
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Exercise</span>
+            </NavLink>
+
+
+            <NavLink
+              to="/habits"
+              className={navLinkClass}
+            >
+              <Repeat
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Habits</span>
+            </NavLink>
+
+
+            <NavLink
+              to="/productivity"
+              className={navLinkClass}
+            >
+              <Brain
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Productivity</span>
+            </NavLink>
+
+
+            <div className="nav-divider" />
+
+
+            <div className="nav-section-title">
+              ANALYTICS
+            </div>
+
+            <NavLink
+              to="/progress"
+              className={navLinkClass}
+            >
+              <BarChart3
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Progress</span>
+            </NavLink>
+
           </nav>
 
+
+          {/* Bottom */}
+
           <div className="sidebar-bottom">
-            <Link to="/settings">
-              ⚙️ Settings
-            </Link>
+
+            <NavLink
+              to="/settings"
+              className={navLinkClass}
+            >
+              <Settings
+                className="nav-icon"
+                size={17}
+              />
+
+              <span>Settings</span>
+            </NavLink>
+
           </div>
+
         </aside>
 
+
+        {/* =========================
+            MAIN CONTENT
+        ========================= */}
+
         <main className="main">
+
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
 
             <Route
               path="/exercise"
@@ -49,25 +166,37 @@ function App() {
             />
 
             <Route
-            path="/productivity"
-            element={<Productivity />}
+              path="/productivity"
+              element={<Productivity />}
+            />
+
+            <Route
+             path="/habits"
+             element={<Habits />}
             />
 
             <Route
               path="/progress"
               element={
-                <h1>Progress coming next...</h1>
+                <div className="placeholder-page">
+                  Progress
+                </div>
               }
             />
 
             <Route
               path="/settings"
               element={
-                <h1>Settings coming next...</h1>
+                <div className="placeholder-page">
+                  Settings
+                </div>
               }
             />
+
           </Routes>
+
         </main>
+
       </div>
     </BrowserRouter>
   );

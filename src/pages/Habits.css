@@ -1,0 +1,1594 @@
+/* =========================================================
+   HABITS PAGE
+========================================================= */
+
+.habits-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.habits-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 42px;
+}
+
+.page-label {
+  margin: 0 0 10px;
+
+  color: #8b5cf6;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.8px;
+}
+
+.habits-header h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  letter-spacing: -1px;
+}
+
+.page-description {
+  margin: 9px 0 0;
+
+  color: #6f7783;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ADD HABIT BUTTON
+========================================================= */
+
+.add-habit-button {
+  height: 42px;
+
+  padding: 0 18px;
+
+  border: 1px solid #8b5cf6;
+  border-radius: 9px;
+
+  background: #8b5cf6;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-habit-button:hover {
+  background: #7c3aed;
+
+  box-shadow:
+    0 8px 24px rgba(139, 92, 246, 0.2);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   HABITS SECTION
+========================================================= */
+
+.habits-section {
+  width: 100%;
+}
+
+.section-heading {
+  margin-bottom: 18px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  letter-spacing: -0.3px;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+
+  color: #5f6772;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-habits {
+  min-height: 360px;
+
+  padding: 50px 30px;
+
+  box-sizing: border-box;
+
+  border: 1px dashed #292e36;
+  border-radius: 14px;
+
+  background: #0f1115;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.empty-habit-icon {
+  width: 52px;
+  height: 52px;
+
+  margin-bottom: 18px;
+
+  border: 1px solid #2b3039;
+  border-radius: 14px;
+
+  background: #15181d;
+
+  color: #8b5cf6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 27px;
+  font-weight: 300;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.empty-habit-icon:hover {
+  background: rgba(139, 92, 246, 0.08);
+
+  border-color: #8b5cf6;
+
+  transform: translateY(-2px);
+}
+
+.empty-habits h3 {
+  margin: 0;
+
+  color: #dfe2e7;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.empty-habits p {
+  max-width: 350px;
+
+  margin: 8px 0 20px;
+
+  color: #626a76;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+.empty-habit-button {
+  height: 38px;
+
+  padding: 0 16px;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  background: #15181d;
+
+  color: #c8ccd3;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.empty-habit-button:hover {
+  background: #1b1f25;
+
+  border-color: #3a404a;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   HABIT CARDS
+========================================================= */
+
+.habits-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 14px;
+}
+
+.habit-card {
+  position: relative;
+
+  min-height: 150px;
+
+  overflow: hidden;
+
+  border: 1px solid #22262d;
+  border-radius: 14px;
+
+  background: #0f1115;
+
+  display: flex;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.habit-card:hover {
+  border-color: #343a44;
+
+  transform: translateY(-2px);
+}
+
+.habit-card-accent {
+  width: 3px;
+
+  flex-shrink: 0;
+}
+
+.habit-card-content {
+  width: 100%;
+
+  padding: 20px;
+}
+
+.habit-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.habit-card-top > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.habit-card-top h3 {
+  margin: 0;
+  color: #e7e9ed;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+/* Category + Habit Type row */
+.habit-card-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* FINAL HABIT TAG OVERRIDE */
+
+.habit-card .habit-card-tags .habit-category,
+.habit-card .habit-card-tags .habit-type {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  height: 22px !important;
+  padding: 0 8px !important;
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  border-radius: 5px !important;
+
+  color: #a78bfa !important;
+  background: rgba(139, 92, 246, 0.10) !important;
+  border: 1px solid rgba(139, 92, 246, 0.22) !important;
+
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+
+  white-space: nowrap !important;
+}
+/* Category */
+.habit-card-tags .habit-category {
+  margin: 0;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.10);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+}
+
+/* Habit Type */
+.habit-card-tags .habit-type {
+  color: #aeb5c0;
+  background: #15191f;
+  border: 1px solid #292e36;
+}
+
+.habit-color-dot {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+}
+
+.habit-card-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+.habit-card-details div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.habit-card-details span {
+  color: #555d68;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+.habit-card-details strong {
+  color: #b9bec7;
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.habit-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 2000;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.68);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HABIT MODAL
+========================================================= */
+
+.habit-modal {
+  width: min(500px, 100%);
+
+  max-height: calc(100vh - 40px);
+
+  border: 1px solid #292e36;
+  border-radius: 14px;
+
+  background: #111419;
+
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+
+  /*
+    Important:
+    The modal itself does NOT scroll.
+  */
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.habit-modal-header {
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #22262d;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  flex-shrink: 0;
+}
+
+.habit-modal-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 18px;
+}
+
+.habit-modal-header p {
+  margin: 5px 0 0;
+
+  color: #646c77;
+
+  font-size: 11px;
+}
+
+.habit-modal-close {
+  width: 30px;
+  height: 30px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #6d7580;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.habit-modal-close:hover {
+  background: #1b1f25;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   HABIT FORM
+========================================================= */
+
+.habit-form {
+  padding: 24px;
+
+  /*
+    IMPORTANT:
+    The form itself does not scroll.
+  */
+  overflow: visible;
+}
+
+.habit-form-group {
+  margin-bottom: 18px;
+}
+
+.habit-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #8a919c;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.habit-form-group input,
+.habit-form-group select {
+  width: 100%;
+  height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #0c0f13;
+
+  color: #e3e5e9;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.habit-form-group input::placeholder {
+  color: #4e5661;
+}
+
+.habit-form-group input:focus,
+.habit-form-group select:focus {
+  border-color: #8b5cf6;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.habit-form-group select {
+  cursor: pointer;
+
+  appearance: auto;
+  -webkit-appearance: auto;
+
+  background-color: #0c0f13;
+
+  color: #e3e5e9;
+}
+
+.habit-form-group select option {
+  background: #111419;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   CUSTOM SELECT
+========================================================= */
+
+.custom-select-group {
+  margin-bottom: 18px;
+}
+
+.custom-select-group > label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #8a919c;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+.custom-select {
+  position: relative;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   TRIGGER
+========================================================= */
+
+.custom-select-trigger {
+  width: 100%;
+  height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  background: #0c0f13;
+
+  display: flex;
+  align-items: center;
+
+  color: #e3e5e9;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.custom-select-trigger:hover {
+  background: #11151a;
+
+  border-color: #383e48;
+}
+
+.custom-select-trigger:focus {
+  outline: none;
+
+  border-color: #8b5cf6;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+
+/* =========================================================
+   VALUE
+========================================================= */
+
+.custom-select-value {
+  color: #e3e5e9;
+}
+
+.custom-select-placeholder {
+  color: #6a727e;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.custom-select-arrow {
+  margin-left: auto;
+
+  color: #69717d;
+
+  font-size: 8px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DROPDOWN MENU
+========================================================= */
+
+.custom-select-menu {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: calc(100% + 6px);
+
+  width: 100%;
+
+  max-height: 190px;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  border: 1px solid #292e36;
+  border-radius: 9px;
+
+  background: #111419;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.5);
+
+  z-index: 1000;
+}
+
+
+/* =========================================================
+   DROPDOWN SCROLLBAR
+========================================================= */
+
+.custom-select-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-select-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb {
+  background: #303640;
+
+  border-radius: 10px;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb:hover {
+  background: #424a56;
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.custom-select-option {
+  width: 100%;
+  height: 36px;
+
+  box-sizing: border-box;
+
+  padding: 0 9px;
+
+  margin: 0;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+
+  color: #9ba2ad;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.custom-select-option:hover {
+  background: #1a1e24;
+
+  color: #ffffff;
+}
+
+.custom-select-option.active {
+  background: rgba(139, 92, 246, 0.09);
+
+  color: #d8dbe1;
+}
+
+
+/* =========================================================
+   CHECKMARK
+========================================================= */
+
+.custom-select-check {
+  margin-left: auto;
+
+  color: #a78bfa;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   TARGET + UNIT
+========================================================= */
+
+.habit-form-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   REMOVE NUMBER SPINNER
+========================================================= */
+
+.habit-form-group input[type="number"]::-webkit-inner-spin-button,
+.habit-form-group input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+
+  margin: 0;
+}
+
+.habit-form-group input[type="number"] {
+  -moz-appearance: textfield;
+
+  appearance: textfield;
+}
+
+
+/* =========================================================
+   CUSTOM COLOR DROPDOWN
+========================================================= */
+
+.habit-custom-select {
+  position: relative;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   COLOR TRIGGER
+========================================================= */
+
+.habit-color-trigger {
+  width: 100%;
+  height: 40px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  background: #0c0f13;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #e3e5e9;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.habit-color-trigger:hover {
+  background: #11151a;
+
+  border-color: #383e48;
+}
+
+
+/* Selected color square */
+
+.habit-color-trigger .habit-color-dot {
+  width: 17px !important;
+  height: 17px !important;
+
+  min-width: 17px !important;
+  min-height: 17px !important;
+
+  max-width: 17px !important;
+  max-height: 17px !important;
+
+  flex: 0 0 17px !important;
+
+  display: block !important;
+
+  border-radius: 5px;
+
+  box-sizing: border-box;
+
+  flex-shrink: 0 !important;
+}
+
+
+/* Selected color name */
+
+.habit-color-selected-name {
+  color: #c5cad2;
+
+  line-height: 1;
+}
+
+
+/* Arrow */
+
+.habit-select-arrow {
+  margin-left: auto;
+
+  color: #626a76;
+
+  font-size: 8px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   COLOR DROPDOWN LIST
+========================================================= */
+
+.habit-color-dropdown {
+  position: absolute;
+
+  /*
+    Color is near the bottom of the form,
+    therefore the list opens upward.
+  */
+  bottom: calc(100% + 6px);
+
+  top: auto;
+
+  left: 0;
+  right: 0;
+
+  width: 100%;
+
+  max-height: 180px;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #292e36;
+  border-radius: 9px;
+
+  background: #111419;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.5);
+
+  z-index: 9999;
+
+  /*
+    ONLY THE COLOR LIST SCROLLS.
+  */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   COLOR DROPDOWN SCROLLBAR
+========================================================= */
+
+.habit-color-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.habit-color-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.habit-color-dropdown::-webkit-scrollbar-thumb {
+  background: #303640;
+
+  border-radius: 10px;
+}
+
+.habit-color-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #424a56;
+}
+
+
+/* =========================================================
+   COLOR OPTIONS
+========================================================= */
+
+.habit-color-option {
+  width: 100%;
+  height: 36px;
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 0 9px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 10px;
+
+  color: #9ba2ad;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.habit-color-option:hover {
+  background: #1a1e24;
+
+  color: #ffffff;
+}
+
+.habit-color-option.active {
+  background: rgba(139, 92, 246, 0.09);
+
+  color: #d8dbe1;
+}
+
+
+/* =========================================================
+   COLOR OPTION DOT
+========================================================= */
+
+.habit-color-option-dot {
+  width: 16px !important;
+  height: 16px !important;
+
+  min-width: 16px !important;
+  min-height: 16px !important;
+
+  max-width: 16px !important;
+  max-height: 16px !important;
+
+  flex: 0 0 16px !important;
+
+  display: block !important;
+
+  border-radius: 5px;
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 0;
+
+  flex-shrink: 0;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================================================
+   COLOR CHECKMARK
+========================================================= */
+
+.habit-color-check {
+  margin-left: auto;
+
+  color: #a78bfa;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   MODAL ACTIONS
+========================================================= */
+
+.habit-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 8px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #22262d;
+}
+
+.habit-cancel-button,
+.habit-create-button {
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.habit-cancel-button {
+  border: 1px solid #292e36;
+
+  background: #15181d;
+
+  color: #8a919c;
+}
+
+.habit-cancel-button:hover {
+  background: #1b1f25;
+
+  color: #ffffff;
+}
+
+.habit-create-button {
+  border: 1px solid #8b5cf6;
+
+  background: #8b5cf6;
+
+  color: #ffffff;
+}
+
+.habit-create-button:hover {
+  background: #7c3aed;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .habits-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .habits-header h1 {
+    font-size: 27px;
+  }
+
+  .add-habit-button {
+    width: 100%;
+  }
+
+  .empty-habits {
+    min-height: 320px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .habit-form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .habit-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .habit-cancel-button,
+  .habit-create-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SHORT SCREENS
+========================================================= */
+
+@media (max-height: 700px) {
+
+  .habit-modal-overlay {
+    padding: 12px;
+  }
+
+  .habit-modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .habit-modal-header {
+    padding: 18px 20px;
+  }
+
+  .habit-form {
+    padding: 20px;
+  }
+
+  .habit-form-group {
+    margin-bottom: 15px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE MODAL
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .habit-modal-overlay {
+    padding: 12px;
+  }
+
+  .habit-modal {
+    width: 100%;
+
+    border-radius: 12px;
+  }
+
+  .habit-modal-header {
+    padding: 18px 18px;
+  }
+
+  .habit-form {
+    padding: 18px;
+  }
+}
+
+/* =========================================================
+   CUSTOM SELECT DROPDOWNS
+   ========================================================= */
+
+.custom-select-group {
+  margin-bottom: 18px;
+}
+
+.custom-select-group > label {
+  display: block;
+  margin-bottom: 7px;
+  color: #8a919c;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Dropdown wrapper */
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+/* Main closed dropdown */
+.custom-select-trigger {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  background: #0c0f13;
+
+  display: flex;
+  align-items: center;
+
+  color: #e3e5e9;
+  font-family: inherit;
+  font-size: 12px;
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.custom-select-trigger:hover {
+  background: #11151a;
+  border-color: #383e48;
+}
+
+.custom-select-trigger:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* Selected value */
+.custom-select-value {
+  color: #e3e5e9;
+}
+
+/* Placeholder */
+.custom-select-placeholder {
+  color: #6a727e;
+}
+
+/* Arrow */
+.custom-select-arrow {
+  margin-left: auto;
+
+  color: #69717d;
+  font-size: 8px;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DROPDOWN MENU
+   ========================================================= */
+
+.custom-select-menu {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+
+  width: 100%;
+  max-height: 190px;
+
+  padding: 5px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  border: 1px solid #292e36;
+  border-radius: 9px;
+
+  background: #111419;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+
+  z-index: 1000;
+}
+
+
+/* Scrollbar */
+.custom-select-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-select-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb {
+  background: #303640;
+  border-radius: 10px;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb:hover {
+  background: #424a56;
+}
+
+
+/* =========================================================
+   DROPDOWN OPTIONS
+   ========================================================= */
+
+.custom-select-option {
+  width: 100%;
+  height: 36px;
+
+  box-sizing: border-box;
+
+  padding: 0 9px;
+  margin: 0;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+
+  color: #9ba2ad;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.custom-select-option:hover {
+  background: #1a1e24;
+  color: #ffffff;
+}
+
+/* Selected option */
+.custom-select-option.active {
+  background: rgba(139, 92, 246, 0.09);
+  color: #d8dbe1;
+}
+
+/* Check mark */
+.custom-select-check {
+  margin-left: auto;
+
+  color: #a78bfa;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TARGET + UNIT ROW
+   ========================================================= */
+
+.habit-form-row .custom-select-group {
+  margin-bottom: 0;
+}
+
+.habit-card-tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  height: 22px;
+}
+
+/* Category + Habit Type */
+.habit-card-tags .habit-category,
+.habit-card-tags .habit-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 22px;
+  box-sizing: border-box;
+
+  padding: 0 8px;
+
+  border-radius: 5px;
+
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Category */
+.habit-card-tags .habit-category {
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.10);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+}
+
+/* Habit Type */
+.habit-card-tags .habit-type {
+  color: #aeb5c0;
+  background: #15191f;
+  border: 1px solid #292e36;
+}
+
+/* Habit card actions */
+.habit-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Habit completion button */
+.habit-complete-button {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border: 1px solid #303640;
+    border-radius: 7px;
+
+    background: #111419;
+    color: transparent;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.habit-complete-button:hover {
+    border-color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.08);
+    transform: scale(1.05);
+}
+
+.habit-complete-button.completed {
+    border-color: #8b5cf6;
+    background: #8b5cf6;
+    color: #ffffff;
+}
