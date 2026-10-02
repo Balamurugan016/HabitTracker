@@ -367,13 +367,10 @@
 }
 
 .habit-card-details {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 10px;
-
-  margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 25px;
 }
 
 .habit-card-details div {
@@ -1591,4 +1588,115 @@
     border-color: #8b5cf6;
     background: #8b5cf6;
     color: #ffffff;
+}
+
+.habit-delete-button {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border: 1px solid #303640;
+    border-radius: 7px;
+
+    background: #111419;
+    color: #69717d;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.habit-delete-button:hover {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    transform: scale(1.05);
+}
+
+.habit-history {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #252a33;
+}
+
+.habit-history-header {
+  margin-bottom: 10px;
+  color: #69717d;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.habit-history-grid {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 5px;
+}
+
+.habit-history-day {
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 3px;
+  background: #20252d;
+  border: 1px solid #2b313b;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.habit-history-day.completed {
+  background: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+.habit-history-day:hover {
+  transform: scale(1.15);
+}
+
+/* Edit Habit Button */
+
+.habit-edit-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: 1px solid #2b313b;
+  border-radius: 7px;
+
+  background: transparent;
+  color: #8b5cf6;
+
+  font-size: 16px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.habit-edit-button:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  color: #a78bfa;
 }
