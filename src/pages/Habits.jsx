@@ -11,12 +11,14 @@ function Habits() {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [frequency, setFrequency] = useState("");
+    const [restDay, setRestDay] = useState("")
     const [target, setTarget] = useState("");
     const [unit, setUnit] = useState("");
     const [color, setColor] = useState("#8b5cf6");
     const [showColorDropdown, setShowColorDropdown] = useState(false);
     const [habitType, setHabitType] = useState("");
     const [editingHabit, setEditingHabit] = useState(null);
+
 
     useEffect(() => {
         const data = getData();
@@ -53,8 +55,19 @@ function Habits() {
         { value: "Daily", label: "Daily" },
         { value: "Weekdays", label: "Weekdays" },
         { value: "Weekends", label: "Weekends" },
+        { value: "6Days", label: "6 Days a Week" },
         { value: "Weekly", label: "Weekly" },
         { value: "Monthly", label: "Monthly" },
+    ];
+
+    const restDayOptions = [
+        { value: "0", label: "Sunday" },
+        { value: "1", label: "Monday" },
+        { value: "2", label: "Tuesday" },
+        { value: "3", label: "Wednesday" },
+        { value: "4", label: "Thursday" },
+        { value: "5", label: "Friday" },
+        { value: "6", label: "Saturday" },
     ];
 
     const resetForm = () => {
@@ -62,6 +75,7 @@ function Habits() {
         setCategory("");
         setHabitType("");
         setFrequency("");
+        setRestDay("");
         setTarget("");
         setUnit("");
         setColor("#8b5cf6");
@@ -105,6 +119,11 @@ function Habits() {
             return;
         }
 
+        if (frequency === "6Days" && restDay === "") {
+            alert("Please select a rest day.");
+            return;
+        }
+
         if (editingHabit) {
             const data = getData();
 
@@ -116,6 +135,7 @@ function Habits() {
                         category,
                         habitType,
                         frequency,
+                        restDay: frequency === "6Days" ? restDay : null,
                         target: target === "" ? null : Number(target),
                         unit,
                         color,
@@ -134,6 +154,7 @@ function Habits() {
                 category,
                 habitType,
                 frequency,
+                restDay: frequency === "6Days" ? restDay : null,
                 target: target === "" ? null : Number(target),
                 unit,
                 color,
@@ -237,6 +258,7 @@ function Habits() {
         setCategory(habit.category);
         setHabitType(habit.habitType);
         setFrequency(habit.frequency);
+        setRestDay(habit.restDay ?? "");
         setTarget(habit.target ?? "");
         setUnit(habit.unit ?? "");
         setColor(habit.color || "#8b5cf6");
@@ -248,6 +270,14 @@ function Habits() {
     const getHabitStreak = (habitId) => {
         const data = getData();
 
+        const habit = data.habits.find(
+            (item) => item.id === habitId
+        );
+
+        if (!habit) {
+            return 0;
+        }
+
         const completedDates = new Set(
             data.habitLogs
                 .filter(
@@ -258,15 +288,58 @@ function Habits() {
                 .map((log) => log.date)
         );
 
+        const isExpectedDay = (date) => {
+            const dayOfWeek = date.getDay();
+
+            if (habit.frequency === "Daily") {
+                return true;
+            }
+
+            if (habit.frequency === "Weekdays") {
+                return dayOfWeek >= 1 && dayOfWeek <= 5;
+            }
+
+            if (habit.frequency === "Weekends") {
+                return dayOfWeek === 0 || dayOfWeek === 6;
+            }
+
+            if (habit.frequency === "6Days") {
+                return dayOfWeek !== Number(habit.restDay);
+            }
+
+            if (habit.frequency === "Weekly") {
+                const createdDate = new Date(habit.createdAt);
+
+                return dayOfWeek === createdDate.getDay();
+            }
+
+            if (habit.frequency === "Monthly") {
+                const createdDate = new Date(habit.createdAt);
+
+                return date.getDate() === createdDate.getDate();
+            }
+
+            return false;
+        };
+
         let streak = 0;
+        let daysChecked = 0;
+
         const today = new Date();
 
-        while (true) {
+        while (daysChecked < 366) {
             const date = new Date(today);
 
             date.setDate(
-                today.getDate() - streak
+                today.getDate() - daysChecked
             );
+
+            daysChecked++;
+
+            // Ignore non-scheduled days
+            if (!isExpectedDay(date)) {
+                continue;
+            }
 
             const dateString = `${date.getFullYear()}-${String(
                 date.getMonth() + 1
@@ -274,6 +347,7 @@ function Habits() {
                 date.getDate()
             ).padStart(2, "0")}`;
 
+            // Scheduled day was missed
             if (!completedDates.has(dateString)) {
                 break;
             }
@@ -334,6 +408,13 @@ function Habits() {
             if (
                 habit.frequency === "Weekends" &&
                 (day === 0 || day === 6)
+            ) {
+                expectedCount++;
+            }
+
+            if (
+                habit.frequency === "6Days" &&
+                day !== Number(habit.restDay)
             ) {
                 expectedCount++;
             }
@@ -411,6 +492,13 @@ function Habits() {
             if (
                 habit.frequency === "Weekends" &&
                 (dayOfWeek === 0 || dayOfWeek === 6)
+            ) {
+                expected = true;
+            }
+
+            if (
+                habit.frequency === "6Days" &&
+                dayOfWeek !== Number(habit.restDay)
             ) {
                 expected = true;
             }
@@ -649,7 +737,11 @@ function Habits() {
                                             {getHabitHistory(habit).map((day) => (
                                                 <div
                                                     key={day.date}
-                                                    className={`habit-history-day ${day.completed ? "completed" : ""
+                                                    className={`habit-history-day ${day.completed
+                                                        ? "completed"
+                                                        : !day.expected
+                                                            ? "not-expected"
+                                                            : ""
                                                         }`}
                                                     title={day.date}
                                                 />
@@ -708,6 +800,52 @@ function Habits() {
                             onSubmit={handleSubmit}
                         >
 
+                            <div className="habit-form-group">
+                                <label htmlFor="habit-name">
+                                    Habit Name
+                                </label>
+
+                                <input
+                                    id="habit-name"
+                                    type="text"
+                                    value={name}
+                                    onChange={(event) => setName(event.target.value)}
+                                    placeholder="e.g. Morning Run"
+                                />
+                            </div>
+
+                            {/* TARGET + UNIT */}
+                            <div className="habit-form-row">
+
+                                {/* TARGET */}
+                                <div className="habit-form-group">
+                                    <label htmlFor="habit-target">
+                                        Target
+                                    </label>
+
+                                    <input
+                                        id="habit-target"
+                                        type="number"
+                                        min="0"
+                                        value={target}
+                                        onChange={(event) =>
+                                            setTarget(event.target.value)
+                                        }
+                                        placeholder="e.g. 5"
+                                    />
+                                </div>
+
+                                {/* UNIT */}
+                                <CustomSelect
+                                    label="Unit"
+                                    value={unit}
+                                    placeholder="Select unit"
+                                    options={unitOptions}
+                                    onChange={setUnit}
+                                />
+
+                            </div>
+
                             {/* Category */}
                             <CustomSelect
                                 label="Category"
@@ -733,54 +871,15 @@ function Habits() {
                                 onChange={setFrequency}
                             />
 
-
-                            <div className="habit-form-row">
-
-                                {/* TARGET */}
-                                <div className="habit-form-group">
-
-                                    <label htmlFor="habit-target">
-                                        Target
-                                    </label>
-
-                                    <input
-                                        id="habit-target"
-                                        type="number"
-                                        min="0"
-                                        value={target}
-                                        onChange={(event) =>
-                                            setTarget(event.target.value)
-                                        }
-                                        placeholder="e.g. 5"
-                                    />
-
-                                </div>
-
-                                <div className="habit-form-group">
-                                    <label htmlFor="habit-name">
-                                        Habit Name
-                                    </label>
-
-                                    <input
-                                        id="habit-name"
-                                        type="text"
-                                        value={name}
-                                        onChange={(event) => setName(event.target.value)}
-                                        placeholder="e.g. Morning Run"
-                                    />
-                                </div>
-
-                                {/* UNIT */}
+                            {frequency === "6Days" && (
                                 <CustomSelect
-                                    label="Unit"
-                                    value={unit}
-                                    placeholder="Select unit"
-                                    options={unitOptions}
-                                    onChange={setUnit}
+                                    label="Rest Day"
+                                    value={restDay}
+                                    placeholder="Select rest day"
+                                    options={restDayOptions}
+                                    onChange={setRestDay}
                                 />
-
-                            </div>
-
+                            )}
 
                             {/* Color */}
                             <div className="habit-form-group">

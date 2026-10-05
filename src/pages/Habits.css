@@ -430,7 +430,7 @@
 
 .habit-modal {
   width: min(500px, 100%);
-
+  height: min(680px, calc(100vh - 40px));
   max-height: calc(100vh - 40px);
 
   border: 1px solid #292e36;
@@ -444,10 +444,6 @@
   display: flex;
   flex-direction: column;
 
-  /*
-    Important:
-    The modal itself does NOT scroll.
-  */
   overflow: hidden;
 }
 
@@ -510,16 +506,41 @@
 /* =========================================================
    HABIT FORM
 ========================================================= */
-
 .habit-form {
+  flex: 1;
+  min-height: 0;
+
   padding: 24px;
 
-  /*
-    IMPORTANT:
-    The form itself does not scroll.
-  */
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
+/* Modal form scrollbar */
+
+.habit-form::-webkit-scrollbar {
+  width: 5px;
+}
+
+.habit-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.habit-form::-webkit-scrollbar-thumb {
+  background: #2d333d;
+  border-radius: 10px;
+}
+
+.habit-form::-webkit-scrollbar-thumb:hover {
+  background: #414956;
+}
+
+/* Firefox */
+.habit-form {
+  scrollbar-width: thin;
+  scrollbar-color: #2d333d transparent;
+}
+
 
 .habit-form-group {
   margin-bottom: 18px;
@@ -1149,6 +1170,8 @@
   padding-top: 20px;
 
   border-top: 1px solid #22262d;
+
+  flex-shrink: 0;
 }
 
 .habit-cancel-button,
@@ -1664,6 +1687,11 @@
   border-color: #8b5cf6;
 }
 
+.habit-history-day.not-expected {
+  background: #111318;
+  border-color: #181b21;
+}
+
 .habit-history-day:hover {
   transform: scale(1.15);
 }
@@ -1699,4 +1727,46 @@
   background: rgba(139, 92, 246, 0.1);
   border-color: #8b5cf6;
   color: #a78bfa;
+}
+
+/* =========================================================
+   MODAL SCROLL + FIXED ACTIONS
+========================================================= */
+
+.habit-form {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Keep Save / Add Habit buttons visible */
+.habit-modal-actions {
+  position: sticky;
+  bottom: 0;
+  background: #111419;
+  z-index: 20;
+  padding-bottom: 4px;
+}
+
+/* Frequency / Rest Day dropdowns open downward */
+.custom-select-menu {
+  top: calc(100% + 6px) !important;
+  bottom: auto !important;
+}
+
+/* Keep dropdown above other form elements */
+.custom-select {
+  z-index: 1;
+}
+
+.custom-select:has(.custom-select-menu) {
+  z-index: 100;
+}
+
+.habit-modal-actions {
+  position: relative;
+  z-index: 50;
+
+  background: #111419;
 }
