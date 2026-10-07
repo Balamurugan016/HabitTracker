@@ -1,6 +1,74 @@
 import "./Exercise.css";
+import AddRun from "../components/AddRun";
+import { useState } from "react";
+import WorkoutTypeModal from "../components/WorkoutTypeModal";
+import { getData } from "../data/storage";
 
 function Exercise() {
+  const [showAddRun, setShowAddRun] = useState(false);
+  const [showWorkoutTypes, setShowWorkoutTypes] = useState(false);
+  const [runs, setRuns] = useState(() => getData().runs);
+
+  console.log("showAddRun:", showAddRun);
+  console.log("showWorkoutTypes:", showWorkoutTypes);
+
+  const totalDistance = runs.reduce(
+    (total, run) => total + Number(run.distance || 0),
+    0
+  );
+
+  const longestRun = runs.reduce(
+    (longest, run) =>
+      Math.max(longest, Number(run.distance || 0)),
+    0
+  );
+
+  const today = new Date();
+
+  const startOfWeek = new Date(today);
+  const day = startOfWeek.getDay();
+
+  const difference = day === 0 ? 6 : day - 1;
+
+  startOfWeek.setDate(startOfWeek.getDate() - difference);
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  const weeklyDistance = runs.reduce((total, run) => {
+    const runDate = new Date(`${run.date}T00:00:00`);
+
+    if (runDate >= startOfWeek && runDate <= today) {
+      return total + Number(run.distance || 0);
+    }
+
+    return total;
+  }, 0);
+
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  const weeklyMileage = weekDays.map((dayName, index) => {
+    const date = new Date(startOfWeek);
+
+    date.setDate(startOfWeek.getDate() + index);
+
+    const dateString =
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    const distance = runs
+      .filter((run) => run.date === dateString)
+      .reduce(
+        (total, run) => total + Number(run.distance || 0),
+        0
+      );
+
+    return {
+      day: dayName,
+      distance,
+    };
+  });
+
+
+
+
   return (
     <div className="exercise-page">
       <div className="page-heading">
@@ -9,7 +77,10 @@ function Exercise() {
           <h1>Train with purpose.</h1>
         </div>
 
-        <button className="add-workout">
+        <button
+          className="add-workout"
+          onClick={() => setShowWorkoutTypes(true)}
+        >
           + Add Workout
         </button>
       </div>
@@ -29,7 +100,7 @@ function Exercise() {
         <div className="exercise-stats">
           <div className="exercise-stat">
             <p>This Week</p>
-            <h3>35.0 km</h3>
+            <h3>{weeklyDistance.toFixed(1)} km</h3>
             <span>Weekly distance</span>
           </div>
 
@@ -47,7 +118,7 @@ function Exercise() {
 
           <div className="exercise-stat">
             <p>Longest Run</p>
-            <h3>21.0 km</h3>
+            <h3>{longestRun.toFixed(1)} km</h3>
             <span>Distance</span>
           </div>
         </div>
@@ -66,53 +137,36 @@ function Exercise() {
         </div>
 
         <div className="mileage">
-          <div className="mileage-row">
-            <span>Mon</span>
-            <div className="mileage-bar">
-              <div style={{ width: "70%" }}></div>
-            </div>
-            <strong>5 km</strong>
-          </div>
+          {weeklyMileage.map((item) => {
+            const maxDistance = Math.max(
+              ...weeklyMileage.map((day) => day.distance),
+              1
+            );
 
-          <div className="mileage-row">
-            <span>Tue</span>
-            <div className="mileage-bar">
-              <div style={{ width: "55%" }}></div>
-            </div>
-            <strong>4 km</strong>
-          </div>
+            const width =
+              item.distance > 0
+                ? `${(item.distance / maxDistance) * 100}%`
+                : "0%";
 
-          <div className="mileage-row">
-            <span>Wed</span>
-            <div className="mileage-bar">
-              <div style={{ width: "70%" }}></div>
-            </div>
-            <strong>5 km</strong>
-          </div>
+            return (
+              <div
+                className="mileage-row"
+                key={item.day}
+              >
+                <span>{item.day}</span>
 
-          <div className="mileage-row">
-            <span>Thu</span>
-            <div className="mileage-bar">
-              <div style={{ width: "55%" }}></div>
-            </div>
-            <strong>4 km</strong>
-          </div>
+                <div className="mileage-bar">
+                  <div style={{ width }} />
+                </div>
 
-          <div className="mileage-row">
-            <span>Fri</span>
-            <div className="mileage-bar">
-              <div style={{ width: "70%" }}></div>
-            </div>
-            <strong>5 km</strong>
-          </div>
-
-          <div className="mileage-row">
-            <span>Sat</span>
-            <div className="mileage-bar">
-              <div style={{ width: "100%" }}></div>
-            </div>
-            <strong>10 km</strong>
-          </div>
+                <strong>
+                  {item.distance > 0
+                    ? `${item.distance.toFixed(1)} km`
+                    : "—"}
+                </strong>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -158,6 +212,28 @@ function Exercise() {
           </div>
         </div>
       </section>
+      {showAddRun && (
+        <AddRun
+          onClose={() => setShowAddRun(false)}
+          onSaved={(newRun) => {
+            setRuns(getData().runs);
+          }}
+        />
+      )}
+
+      {showWorkoutTypes && (
+        <WorkoutTypeModal
+          onClose={() => setShowWorkoutTypes(false)}
+          onSelect={(type) => {
+            console.log("Selected workout:", type);
+            if (type === "running") {
+              console.log("Opening Add Run");
+              setShowWorkoutTypes(false);
+              setShowAddRun(true);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

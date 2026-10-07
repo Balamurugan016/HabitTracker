@@ -62,17 +62,9 @@ function CustomSelect({
                     ? "custom-select-option active"
                     : "custom-select-option"
                 }
-                onClick={() =>
-                  handleSelect(option)
-                }
+                onClick={() => handleSelect(option)}
               >
                 <span>{option.label}</span>
-
-                {option.value === value && (
-                  <span className="custom-select-check">
-                    ✓
-                  </span>
-                )}
               </button>
             ))}
 

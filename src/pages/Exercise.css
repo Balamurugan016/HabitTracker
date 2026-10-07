@@ -200,3 +200,575 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ================================
+   WORKOUT TYPE MODAL
+================================ */
+
+.workout-type-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.workout-type-modal {
+  width: 100%;
+  max-width: 520px;
+
+  padding: 26px;
+
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+
+  background: #111;
+
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+}
+
+.workout-type-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.workout-type-header span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+
+  color: #8b5cf6;
+}
+
+.workout-type-header h2 {
+  margin: 0;
+
+  font-size: 24px;
+  color: #fff;
+}
+
+.workout-type-close {
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #1c1c1c;
+  color: #aaa;
+
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.workout-type-close:hover {
+  background: #252525;
+  color: #fff;
+}
+
+.workout-type-subtitle {
+  margin: 24px 0 12px;
+
+  font-size: 14px;
+  color: #888;
+}
+
+.workout-type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workout-type-option {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #242424;
+  border-radius: 12px;
+
+  background: #181818;
+  color: #fff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.workout-type-option:hover {
+  background: #202020;
+  border-color: #3a3a3a;
+  transform: translateY(-1px);
+}
+
+.workout-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  margin-right: 14px;
+
+  border-radius: 10px;
+
+  background: #222;
+
+  font-size: 22px;
+}
+
+.workout-type-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  flex: 1;
+}
+
+.workout-type-info strong {
+  font-size: 15px;
+}
+
+.workout-type-info small {
+  font-size: 12px;
+  color: #777;
+}
+
+.workout-type-arrow {
+  margin-left: 10px;
+
+  color: #666;
+  font-size: 18px;
+}
+
+.workout-type-option:hover .workout-type-arrow {
+  color: #aaa;
+}
+
+@media (max-width: 600px) {
+  .workout-type-modal {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .workout-type-header h2 {
+    font-size: 21px;
+  }
+
+  .workout-type-option {
+    padding: 12px;
+  }
+}
+
+/* =========================================================
+   ADD RUN MODAL
+========================================================= */
+
+.run-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.68);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.run-modal {
+  width: min(500px, 100%);
+  height: min(680px, calc(100vh - 40px));
+  max-height: calc(100vh - 40px);
+
+  border: 1px solid #292e36;
+  border-radius: 14px;
+
+  background: #111419;
+
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.run-modal-header {
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #22262d;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  flex-shrink: 0;
+}
+
+.run-modal-header > div {
+  min-width: 0;
+}
+
+.run-modal-header span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #646c77;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+.run-modal-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.run-modal-close {
+  width: 30px;
+  height: 30px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #6d7580;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.run-modal-close:hover {
+  background: #1b1f25;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.run-form {
+  flex: 1;
+  min-height: 0;
+
+  padding: 24px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #2d333d transparent;
+}
+
+.run-form::-webkit-scrollbar {
+  width: 5px;
+}
+
+.run-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.run-form::-webkit-scrollbar-thumb {
+  background: #2d333d;
+  border-radius: 10px;
+}
+
+.run-form::-webkit-scrollbar-thumb:hover {
+  background: #414956;
+}
+
+
+/* =========================================================
+   FORM FIELDS
+========================================================= */
+
+.run-form-field {
+  margin-bottom: 18px;
+}
+
+.run-form-field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #8a919c;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   INPUTS / SELECT / TEXTAREA
+========================================================= */
+
+.run-form-field input,
+.run-form-field select,
+.run-form-field textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #292e36;
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #0c0f13;
+  color: #e3e5e9;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.run-form-field input,
+.run-form-field select {
+  height: 40px;
+  padding: 0 12px;
+}
+
+.run-form-field textarea {
+  min-height: 90px;
+  padding: 11px 12px;
+
+  resize: vertical;
+}
+
+.run-form-field input::placeholder,
+.run-form-field textarea::placeholder {
+  color: #4e5661;
+}
+
+.run-form-field input:focus,
+.run-form-field select:focus,
+.run-form-field textarea:focus {
+  border-color: #8b5cf6;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* =========================================================
+   DISTANCE
+========================================================= */
+
+.run-input-with-unit {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.run-input-with-unit input {
+  padding-right: 45px;
+}
+
+.run-input-with-unit span {
+  position: absolute;
+  right: 12px;
+
+  color: #626a76;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   DURATION
+========================================================= */
+
+.run-duration-inputs {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 8px;
+}
+
+.run-duration-inputs .run-input-with-unit input {
+  padding-right: 35px;
+}
+
+
+/* Remove number spinners */
+
+.run-form-field input[type="number"]::-webkit-inner-spin-button,
+.run-form-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.run-form-field input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.run-modal-actions {
+  position: sticky;
+  bottom: 0;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 8px;
+  padding-top: 20px;
+  padding-bottom: 4px;
+
+  border-top: 1px solid #22262d;
+
+  background: #111419;
+
+  z-index: 20;
+}
+
+.run-cancel-button,
+.run-save-button {
+  height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.run-cancel-button {
+  border: 1px solid #292e36;
+
+  background: #15181d;
+  color: #8a919c;
+}
+
+.run-cancel-button:hover {
+  background: #1b1f25;
+  color: #ffffff;
+}
+
+.run-save-button {
+  border: 1px solid #8b5cf6;
+
+  background: #8b5cf6;
+  color: #ffffff;
+}
+
+.run-save-button:hover {
+  background: #7c3aed;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .run-modal-overlay {
+    padding: 12px;
+  }
+
+  .run-modal {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 24px);
+
+    border-radius: 12px;
+  }
+
+  .run-modal-header {
+    padding: 18px 18px;
+  }
+
+  .run-form {
+    padding: 18px;
+  }
+
+  .run-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .run-cancel-button,
+  .run-save-button {
+    width: 100%;
+  }
+}
+
